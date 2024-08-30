@@ -1,0 +1,146 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilas y Colas en JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            margin-bottom: 20px;
+        }
+        button {
+            margin: 5px;
+        }
+        .output {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pilas y Colas en JavaScript</h1>
+
+    <div class="container">
+        <h2>Pila</h2>
+        <input type="text" id="stackInput" placeholder="Introduce un valor">
+        <button onclick="pushStack()">Añadir a Pila</button>
+        <button onclick="popStack()">Eliminar de Pila</button>
+        <div id="stackOutput" class="output"></div>
+    </div>
+
+    <div class="container">
+        <h2>Cola</h2>
+        <input type="text" id="queueInput" placeholder="Introduce un valor">
+        <button onclick="enqueueQueue()">Añadir a Cola</button>
+        <button onclick="dequeueQueue()">Eliminar de Cola</button>
+        <div id="queueOutput" class="output"></div>
+    </div>
+
+    <script>
+        // Implementación de la Pila
+        class Stack {
+            constructor() {
+                this.items = [];
+            }
+            push(element) {
+                this.items.push(element);
+                this.updateOutput();
+            }
+            pop() {
+                if (this.isEmpty()) {
+                    alert("La pila está vacía");
+                    return;
+                }
+                this.items.pop();
+                this.updateOutput();
+            }
+            peek() {
+                return this.isEmpty() ? "Vacía" : this.items[this.items.length - 1];
+            }
+            isEmpty() {
+                return this.items.length === 0;
+            }
+            size() {
+                return this.items.length;
+            }
+            clear() {
+                this.items = [];
+                this.updateOutput();
+            }
+            updateOutput() {
+                const output = document.getElementById('stackOutput');
+                output.innerHTML = `Elementos en pila: ${this.items.join(', ')}<br>Último elemento (peek): ${this.peek()}<br>`;
+            }
+        }
+
+        // Implementación de la Cola
+        class Queue {
+            constructor() {
+                this.items = [];
+            }
+            enqueue(element) {
+                this.items.push(element);
+                this.updateOutput();
+            }
+            dequeue() {
+                if (this.isEmpty()) {
+                    alert("La cola está vacía");
+                    return;
+                }
+                this.items.shift();
+                this.updateOutput();
+            }
+            front() {
+                return this.isEmpty() ? "Vacía" : this.items[0];
+            }
+            isEmpty() {
+                return this.items.length === 0;
+            }
+            size() {
+                return this.items.length;
+            }
+            clear() {
+                this.items = [];
+                this.updateOutput();
+            }
+            updateOutput() {
+                const output = document.getElementById('queueOutput');
+                output.innerHTML = `Elementos en cola: ${this.items.join(', ')}<br>Primer elemento (front): ${this.front()}<br>`;
+            }
+        }
+
+        // Instancias de pila y cola
+        const stack = new Stack();
+        const queue = new Queue();
+
+        // Funciones para manejar la Pila
+        function pushStack() {
+            const value = document.getElementById('stackInput').value;
+            if (value) {
+                stack.push(value);
+                document.getElementById('stackInput').value = '';
+            }
+        }
+
+        function popStack() {
+            stack.pop();
+        }
+
+        // Funciones para manejar la Cola
+        function enqueueQueue() {
+            const value = document.getElementById('queueInput').value;
+            if (value) {
+                queue.enqueue(value);
+                document.getElementById('queueInput').value = '';
+            }
+        }
+
+        function dequeueQueue() {
+            queue.dequeue();
+        }
+    </script>
+</body>
+</html>
